@@ -27,7 +27,7 @@ export function Assignment({ assignment, assignmentsList, setAssignments }: Prop
     setAssignments(
       assignmentsList.map(a =>
         a.name === assignment.name
-          ? {...a, name: `${a.name}`, complete: !a.complete}
+          ? {...a, complete: !a.complete}
           : a
       )
     );
