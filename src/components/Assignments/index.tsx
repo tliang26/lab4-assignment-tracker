@@ -12,7 +12,7 @@ type Props = {
 
 export function Assignments({ assignments, setAssignments }: Props) {
   let numCreatedAssign = assignments.length;
-  let numCompletedAssign = assignments.filter(a => a.complete == true).length;
+  let numCompletedAssign = assignments.filter(a => a.complete === true).length;
 
   return (
     <section className={styles.assignments}>
@@ -30,12 +30,13 @@ export function Assignments({ assignments, setAssignments }: Props) {
 
       <div className={styles.list}>
         {
-          assignments.map((assignment) => {
+          assignments.map((assignment, index) => {
             return (
               <Assignment 
                 assignment={assignment}
                 assignmentsList={assignments}
                 setAssignments={setAssignments}
+                key={index}
               />
             );
           })

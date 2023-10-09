@@ -34,7 +34,7 @@ export function Header({ input, setInput, assignments, setAssignments }: Props) 
         />
         <button 
           type="button"
-          disabled={input.trim().length == 0 ? true : false}
+          disabled={input.trim().length === 0 ? true : false}
           onClick={() => addHandler()}
         >
           Create <AiOutlinePlusCircle size={20} />

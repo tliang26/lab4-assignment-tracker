@@ -1,5 +1,6 @@
 import styles from "./assignment.module.css";
 import { TbTrash } from "react-icons/tb";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 type Assign = {
   name: string;
@@ -12,6 +13,7 @@ type Props = {
 }
 
 export function Assignment({ assignment, assignmentsList, setAssignments }: Props) {
+  // const assignment = assignmentsList[index];
 
   // function to delete the line of assignment
   const deleteHandler = () => {
@@ -20,13 +22,37 @@ export function Assignment({ assignment, assignmentsList, setAssignments }: Prop
     );
   };
 
+  // function to change the complete status of the assignment
+  const completeHandler = () => {
+    setAssignments(
+      assignmentsList.map(a =>
+        a.name === assignment.name
+          ? {...a, name: `${a.name}`, complete: !a.complete}
+          : a
+      )
+    );
+  };
+
   return (
     <div className={styles.assignment}>
-      <button className={styles.checkContainer}>
-        <div />
+      <button
+        className={styles.checkContainer}
+        onClick={() => completeHandler()}
+      >
+        {
+          assignment.complete === false
+            ? <div />
+            : <BsFillCheckCircleFill size={20} />
+        }
       </button>
 
-      <p>{assignment.name}</p>
+      <p className={
+        assignment.complete === false
+          ? ""
+          : `${styles.textCompleted}`}
+      >
+        {assignment.name}
+      </p>
 
       <button
         className={styles.deleteButton}
