@@ -10,9 +10,9 @@ type Props = {
   setAssignments: (a: Assign[]) => void;
 }
 
-export function Assignments({ assignments }: Props) {
+export function Assignments({ assignments, setAssignments }: Props) {
   let numCreatedAssign = assignments.length;
-  let numCompletedAssign = assignments.filter(x => x.complete == true).length;
+  let numCompletedAssign = assignments.filter(a => a.complete == true).length;
 
   return (
     <section className={styles.assignments}>
@@ -30,8 +30,14 @@ export function Assignments({ assignments }: Props) {
 
       <div className={styles.list}>
         {
-          assignments.map((assignment, index) => {
-            return <Assignment key={index} assignment={assignment}/>;
+          assignments.map((assignment) => {
+            return (
+              <Assignment 
+                assignment={assignment}
+                assignmentsList={assignments}
+                setAssignments={setAssignments}
+              />
+            );
           })
         }
       </div>
