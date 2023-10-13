@@ -35,10 +35,7 @@ export function Assignment({ assignment, assignmentsList, setAssignments }: Prop
 
   return (
     <div className={styles.assignment}>
-      <button
-        className={styles.checkContainer}
-        onClick={() => completeHandler()}
-      >
+      <button className={styles.checkContainer} onClick={completeHandler}>
         {
           assignment.complete === false
             ? <div />
@@ -54,10 +51,7 @@ export function Assignment({ assignment, assignmentsList, setAssignments }: Prop
         {assignment.name}
       </p>
 
-      <button
-        className={styles.deleteButton}
-        onClick={() => deleteHandler()}
-      >
+      <button className={styles.deleteButton} onClick={deleteHandler}>
         <TbTrash size={20} />
       </button>
     </div>

@@ -16,7 +16,8 @@ type Props = {
 export function Header({ input, setInput, assignments, setAssignments }: Props) {
   
   // function to add a new assignment and clear input field
-  const addHandler = () => {
+  const addHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setAssignments([...assignments, {name: `${input}`, complete: false}]);
     setInput("");
   };
@@ -24,7 +25,7 @@ export function Header({ input, setInput, assignments, setAssignments }: Props) 
   return (
     <header className={styles.header}>
       <h1>{uppercase("bcit")} Assignment Tracker</h1>
-      <form className={styles.newAssignmentForm}>
+      <form className={styles.newAssignmentForm} onSubmit={addHandler}>
         <input
           type="text"
           name="assignment"
@@ -32,11 +33,7 @@ export function Header({ input, setInput, assignments, setAssignments }: Props) 
           value={input}
           onChange={(e) => setInput(e.target.value)} 
         />
-        <button 
-          type="button"
-          disabled={input.trim().length === 0 ? true : false}
-          onClick={() => addHandler()}
-        >
+        <button disabled={input.trim().length === 0 ? true : false}>
           Create <AiOutlinePlusCircle size={20} />
         </button>
       </form>
