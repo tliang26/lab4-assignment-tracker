@@ -13,7 +13,6 @@ type Props = {
 }
 
 export function Assignment({ assignment, assignmentsList, setAssignments }: Props) {
-  // const assignment = assignmentsList[index];
 
   // function to delete the line of assignment
   const deleteHandler = () => {
