@@ -1,8 +1,14 @@
-import { Assignment } from "../Assignment";
+// STYLES
 import styles from "./assignments.module.css";
 
+// COMPONENTS
+import { Assignment } from "../Assignment";
+
+// DATA TYPES
 type Assign = {
+  id: string;
   name: string;
+  due: Date;
   complete: boolean;
 };
 type Props = {
@@ -10,6 +16,7 @@ type Props = {
   setAssignments: (a: Assign[]) => void;
 }
 
+// ASSIGNMENTS COMPONENT
 export function Assignments({ assignments, setAssignments }: Props) {
   let numCreatedAssign = assignments.length;
   let numCompletedAssign = assignments.filter(a => a.complete === true).length;

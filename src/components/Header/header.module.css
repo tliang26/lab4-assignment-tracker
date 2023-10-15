@@ -52,3 +52,18 @@
   color: #a9a9a9;
   cursor: default;
 }
+
+.popperButton {
+  position: relative;
+}
+
+.popper {
+  width: auto;
+  border-radius: 10px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  top: 110%;
+  background-color: #808080;
+  color: #0d0d0d;
+}

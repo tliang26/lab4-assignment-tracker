@@ -1,9 +1,15 @@
+// STYLES
 import styles from "./assignment.module.css";
+
+// ICONS
 import { TbTrash } from "react-icons/tb";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
+// DATA TYPES
 type Assign = {
+  id: string;
   name: string;
+  due: Date;
   complete: boolean;
 };
 type Props = {
@@ -12,6 +18,7 @@ type Props = {
   setAssignments: (a: Assign[]) => void;
 }
 
+// ASSIGNMENT COMPONENT
 export function Assignment({ assignment, assignmentsList, setAssignments }: Props) {
 
   // function to delete the line of assignment
@@ -47,7 +54,7 @@ export function Assignment({ assignment, assignmentsList, setAssignments }: Prop
           ? ""
           : `${styles.textCompleted}`}
       >
-        {assignment.name}
+        {assignment.name} {assignment.due.toString()}
       </p>
 
       <button className={styles.deleteButton} onClick={deleteHandler}>
