@@ -1,10 +1,10 @@
 // STYLES
 import styles from "./header.module.css";
 import 'react-day-picker/dist/style.css';
+import './day-picker.css'
 
 // ICONS
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { AiOutlinePlusCircle, AiOutlineCalendar } from "react-icons/ai";
 
 // REACT
 import React, { useState } from 'react';
@@ -12,10 +12,8 @@ import React, { useState } from 'react';
 // HELPER FUNCTIONS AND LIBRARIES
 import { uppercase } from "../../helpers/stringHelpers";
 import { DayPicker } from 'react-day-picker';
-
-// import React, { useRef, useState } from 'react';
-// import FocusTrap from 'focus-trap-react';
-// import { usePopper } from 'react-popper';
+import { format } from 'date-fns';
+import crypto from 'crypto-randomuuid';
 
 // DATA TYPES
 type Assign = {
@@ -40,8 +38,10 @@ export function Header({ input, setInput, selectedDate, setSelectedDate, assignm
   const [isPopperOpen, setIsPopperOpen] = useState(false);
 
   // function to select a date from the datepicker
-  const selectDateHandler = () => {
-    setSelectedDate(selectedDate);
+  const selectDateHandler = (day: Date) => {
+    let endOfDay = day;
+    endOfDay.setHours(23, 59, 59);
+    setSelectedDate(endOfDay);
     setIsPopperOpen(false);
   }
   
@@ -49,16 +49,18 @@ export function Header({ input, setInput, selectedDate, setSelectedDate, assignm
   const addHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setAssignments([...assignments, {
-      id: "random",
+      id: crypto.randomUUID(),
       name: input, 
       due: selectedDate,
       complete: false}]);
     setInput("");
+    setSelectedDate(new Date("2023-01-01"));
   };
 
   return (
     <header className={styles.header}>
       <h1>{uppercase("bcit")} Assignment Tracker</h1>
+
       <form className={styles.newAssignmentForm} onSubmit={addHandler}>
         <input
           type="text"
@@ -69,23 +71,37 @@ export function Header({ input, setInput, selectedDate, setSelectedDate, assignm
         />
 
         <div className={styles.popperButton}>
-          <button type="button" onClick={() => setIsPopperOpen(!isPopperOpen)}>
-            <AiOutlineCalendar size={20} />
+          <button
+            type="button"
+            className={styles.formButton}
+            onClick={() => setIsPopperOpen(!isPopperOpen)}
+          >
+            {selectedDate < new Date()
+              ? <AiOutlineCalendar size={20} />
+              : `Due: ${format(selectedDate, 'PP')}`
+            }
           </button>
           {isPopperOpen
             ? <div className={styles.popper}>
-              <DayPicker
-                initialFocus={isPopperOpen}
-                mode="single"
-                selected={selectedDate}
-                onSelect={selectDateHandler}
-              />
-            </div>
-            : <div></div>
+                <DayPicker
+                  initialFocus={isPopperOpen}
+                  mode="single"
+                  fromDate={new Date()}
+                  selected={selectedDate}
+                  onDayClick={selectDateHandler}
+                />
+              </div>
+            : <></>
           }
         </div>
 
-        <button disabled={input.trim().length === 0 ? true : false}>
+        <button
+          className={styles.formButton}
+          disabled={(input.trim().length === 0) || (selectedDate < new Date()) 
+            ? true 
+            : false
+          }
+        >
           Create <AiOutlinePlusCircle size={20} />
         </button>
       </form>

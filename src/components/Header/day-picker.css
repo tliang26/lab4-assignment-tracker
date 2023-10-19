@@ -1,0 +1,9 @@
+.rdp {
+    --rdp-accent-color: #8284fa; /* Accent color for the background of selected days. */
+    --rdp-accent-color-dark: #8284fa; /* Accent color for the background of selected days (to use in dark-mode). */
+    --rdp-selected-color: #d9d9d9; /* Color of selected day text */
+}
+
+.rdp-button_reset {
+    font-weight: 300;
+}
