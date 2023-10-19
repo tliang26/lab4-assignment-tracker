@@ -13,7 +13,6 @@ import React, { useState } from 'react';
 import { uppercase } from "../../helpers/stringHelpers";
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
-import crypto from 'crypto-randomuuid';
 
 // DATA TYPES
 type Assign = {
@@ -49,7 +48,7 @@ export function Header({ input, setInput, selectedDate, setSelectedDate, assignm
   const addHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setAssignments([...assignments, {
-      id: crypto.randomUUID(),
+      id: window.crypto.randomUUID(),
       name: input, 
       due: selectedDate,
       complete: false}]);

@@ -21,21 +21,21 @@ type Props = {
 // ASSIGNMENT COMPONENT
 export function Assignment({ assignment, assignmentsList, setAssignments }: Props) {
 
-  // function to delete the line of assignment
-  const deleteHandler = () => {
-    setAssignments(
-      assignmentsList.filter(a => a.name !== assignment.name)
-    );
-  };
-
   // function to change the complete status of the assignment
   const completeHandler = () => {
     setAssignments(
       assignmentsList.map(a =>
-        a.name === assignment.name
+        a.id === assignment.id
           ? {...a, complete: !a.complete}
           : a
       )
+    );
+  };
+
+  // function to delete the line of assignment
+  const deleteHandler = () => {
+    setAssignments(
+      assignmentsList.filter(a => a.id !== assignment.id)
     );
   };
 
